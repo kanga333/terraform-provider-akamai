@@ -80,6 +80,9 @@ func resourceProperty() *schema.Resource {
 	}
 
 	return &schema.Resource{
+		CustomizeDiff: func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
+			return diff.SetNewComputed("latest_version")
+		},
 		CreateContext: resourcePropertyCreate,
 		ReadContext:   resourcePropertyRead,
 		UpdateContext: resourcePropertyUpdate,
